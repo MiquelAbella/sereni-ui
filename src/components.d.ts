@@ -20,6 +20,12 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface SereniButton {
+    }
+}
+export interface SereniButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSereniButtonElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -28,8 +34,26 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLSereniButtonElementEventMap {
+        "sereniButtonClick": null;
+    }
+    interface HTMLSereniButtonElement extends Components.SereniButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSereniButtonElementEventMap>(type: K, listener: (this: HTMLSereniButtonElement, ev: SereniButtonCustomEvent<HTMLSereniButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSereniButtonElementEventMap>(type: K, listener: (this: HTMLSereniButtonElement, ev: SereniButtonCustomEvent<HTMLSereniButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSereniButtonElement: {
+        prototype: HTMLSereniButtonElement;
+        new (): HTMLSereniButtonElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "sereni-button": HTMLSereniButtonElement;
     }
 }
 declare namespace LocalJSX {
@@ -47,8 +71,12 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface SereniButton {
+        "onSereniButtonClick"?: (event: SereniButtonCustomEvent<null>) => void;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "sereni-button": SereniButton;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +84,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "sereni-button": LocalJSX.SereniButton & JSXBase.HTMLAttributes<HTMLSereniButtonElement>;
         }
     }
 }
