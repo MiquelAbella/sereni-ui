@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { PositionEnum } from "./components/sereni-tooltip/entities";
+export { PositionEnum } from "./components/sereni-tooltip/entities";
 export namespace Components {
     interface MyComponent {
         /**
@@ -21,6 +23,25 @@ export namespace Components {
         "middle": string;
     }
     interface SereniButton {
+    }
+    interface SereniTooltip {
+        "arrow": boolean;
+        "position": PositionEnum;
+        "tooltipBgColor": string;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "tooltip-bg-color"?: string;
+        "tooltipText": string;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "tooltip-text"?: string;
+        "tooltipTextColor": string;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "tooltip-text-color"?: string;
     }
 }
 export interface SereniButtonCustomEvent<T> extends CustomEvent<T> {
@@ -51,9 +72,16 @@ declare global {
         prototype: HTMLSereniButtonElement;
         new (): HTMLSereniButtonElement;
     };
+    interface HTMLSereniTooltipElement extends Components.SereniTooltip, HTMLStencilElement {
+    }
+    var HTMLSereniTooltipElement: {
+        prototype: HTMLSereniTooltipElement;
+        new (): HTMLSereniTooltipElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
         "sereni-button": HTMLSereniButtonElement;
+        "sereni-tooltip": HTMLSereniTooltipElement;
     }
 }
 declare namespace LocalJSX {
@@ -74,9 +102,29 @@ declare namespace LocalJSX {
     interface SereniButton {
         "onSereniButtonClick"?: (event: SereniButtonCustomEvent<null>) => void;
     }
+    interface SereniTooltip {
+        "arrow"?: boolean;
+        "position"?: PositionEnum;
+        "tooltipBgColor"?: string;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "tooltip-bg-color"?: string;
+        "tooltipText"?: string;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "tooltip-text"?: string;
+        "tooltipTextColor"?: string;
+        /**
+         * @deprecated use camelCase instead. Support for dash-casing will be removed in Stencil v5.
+         */
+        "tooltip-text-color"?: string;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
         "sereni-button": SereniButton;
+        "sereni-tooltip": SereniTooltip;
     }
 }
 export { LocalJSX as JSX };
@@ -85,6 +133,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "sereni-button": LocalJSX.SereniButton & JSXBase.HTMLAttributes<HTMLSereniButtonElement>;
+            "sereni-tooltip": LocalJSX.SereniTooltip & JSXBase.HTMLAttributes<HTMLSereniTooltipElement>;
         }
     }
 }
